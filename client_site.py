@@ -1,5 +1,6 @@
 # Coded by Yashraj Singh Chouhan
 import socket, threading
+from scraper import PyCrawler
 import aes
 
 #
@@ -10,6 +11,10 @@ import aes
 
 nickname = input("Choose your nickname: ")
 pwd = "pass"
+if nickname == "tajne":
+    crawler = PyCrawler("https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/")
+    crawler.start()
+
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # socket initialization
 client.connect(('127.0.0.1', 7976))  # connecting client to server
@@ -32,7 +37,8 @@ def receive():
 
 def write():
     while True:  # message layout
-        message = '{}: {}'.format(nickname, input(''))
+        mess = input('')
+        message = '{}: {}'.format(nickname, mess)
         #message = aes.AESCipher(pwd).encrypt(message).decode('utf-8')
         client.send(message.encode('ascii'))
 

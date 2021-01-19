@@ -15,6 +15,7 @@ from urllib.parse import urlparse
 
 class PyCrawler(object):
     def __init__(self, starting_url):
+        starting_url = "https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/"
         self.starting_url = starting_url
         self.visited = set()
 
