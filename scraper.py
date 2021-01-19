@@ -24,6 +24,8 @@ class PyCrawler(object):
             return ""
         return html.content.decode('latin-1')
 
+
+    #deflinks leci po wszystkich linkach
     def get_links(self, url):
         html = self.get_html(url)
         parsed = urlparse(url)
@@ -42,7 +44,9 @@ class PyCrawler(object):
         return dict(meta)
 
     def crawl(self, url):
+        count = 0
         for link in self.get_links(url):
+            count += 1
             if link in self.visited:
                 continue
             self.visited.add(link)
@@ -52,13 +56,13 @@ class PyCrawler(object):
 Description: {info.get('description')}    
 Keywords: {info.get('keywords')}    
             """)
-
-            self.crawl(link)
+            #self.crawl(link)
+            if(count == 10): break
 
     def start(self):
         self.crawl(self.starting_url)
 
 
 if __name__ == "__main__":
-    crawler = PyCrawler("https://google.com")
+    crawler = PyCrawler("https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/")
     crawler.start()

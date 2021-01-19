@@ -16,7 +16,7 @@ def receive():
             if message == 'NICKNAME':
                 client.send(nickname.encode('ascii'))
             else:
-                #message = aes.AESCipher(pwd).decrypt(message)
+                message = aes.AESCipher(pwd).decrypt(message)
                 print(message)
         except:  # case on wrong ip/port details
             print("An error occured!")
@@ -27,8 +27,8 @@ def receive():
 def write():
     while True:  # message layout
         message = '{}: {}'.format(nickname, input(''))
-        #message = aes.AESCipher(pwd).encrypt(message)
-        client.send(message.encode('ascii'))
+        message = aes.AESCipher(pwd).encrypt(message)
+        client.send(message)
 
 
 receive_thread = threading.Thread(target=receive)  # receiving multiple messages
