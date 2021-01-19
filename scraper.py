@@ -4,6 +4,12 @@ import requests
 import re
 from urllib.parse import urlparse
 
+#
+#This is crawler to find all links
+#
+#@author: Filip Werra s19375
+#
+
 #def loop(self):
 #    thread = ["t1", "t2", "t4", "t3", "t5", "t6", "t7", "t8", "t9", "t10"]
 #    for i in thread:

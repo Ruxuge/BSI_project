@@ -6,7 +6,11 @@ from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
 
-
+#
+#This class is crypting and decrypting with aes
+#
+#@author: Filip Werra s19375
+#
 class AESCipher:
     def __init__(self, key):
         self.key = md5(key.encode('utf8')).digest()

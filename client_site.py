@@ -2,6 +2,12 @@
 import socket, threading
 import aes
 
+#
+#This is client of chat
+#
+#@author: Filip Werra s19375
+#
+
 nickname = input("Choose your nickname: ")
 pwd = "pass"
 
