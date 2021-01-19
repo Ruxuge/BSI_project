@@ -3,7 +3,7 @@ import socket, threading
 import aes
 
 #
-#This is client of chat
+#This is client to test nulti client chat
 #
 #@author: Filip Werra s19375
 #
@@ -22,7 +22,7 @@ def receive():
             if message == 'NICKNAME':
                 client.send(nickname.encode('ascii'))
             else:
-                message = aes.AESCipher(pwd).decrypt(message)
+                #message = aes.AESCipher(pwd).decrypt(message).decode('utf-8')
                 print(message)
         except:  # case on wrong ip/port details
             print("An error occured!")
@@ -33,8 +33,8 @@ def receive():
 def write():
     while True:  # message layout
         message = '{}: {}'.format(nickname, input(''))
-        message = aes.AESCipher(pwd).encrypt(message)
-        client.send(message)
+        #message = aes.AESCipher(pwd).encrypt(message).decode('utf-8')
+        client.send(message.encode('ascii'))
 
 
 receive_thread = threading.Thread(target=receive)  # receiving multiple messages

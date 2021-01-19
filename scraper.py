@@ -4,18 +4,14 @@ import requests
 import re
 from urllib.parse import urlparse
 
+
 #
-#This is crawler to find all links
+# This is crawler to find all links
 #
-#@author: Filip Werra s19375
+# @author: Filip Werra s19375
 #
 
-#def loop(self):
-#    thread = ["t1", "t2", "t4", "t3", "t5", "t6", "t7", "t8", "t9", "t10"]
-#    for i in thread:
-#        thread[i] = threading.Thread(target=)
-#        thread[i].start()
-#        thread[i].join()
+
 
 class PyCrawler(object):
     def __init__(self, starting_url):
@@ -30,13 +26,12 @@ class PyCrawler(object):
             return ""
         return html.content.decode('latin-1')
 
-
-    #deflinks leci po wszystkich linkach
+    # deflinks leci po wszystkich linkach
     def get_links(self, url):
         html = self.get_html(url)
         parsed = urlparse(url)
         base = f"{parsed.scheme}://{parsed.netloc}"
-        links = re.findall('''<a\s+(?:[^>]*?\s+)?href="([^"]*)"''', html) #z tego trzeba wyciągnąć 10 linków
+        links = re.findall('''<a\s+(?:[^>]*?\s+)?href="([^"]*)"''', html)  # z tego trzeba wyciągnąć 10 linków
         for i, link in enumerate(links):
             if not urlparse(link).netloc:
                 link_with_base = base + link
@@ -49,6 +44,13 @@ class PyCrawler(object):
         meta = re.findall("<meta .*?name=[\"'](.*?)['\"].*?content=[\"'](.*?)['\"].*?>", html)
         return dict(meta)
 
+    def print_link(self, info, link):
+        if "wine" in info.get('description'):
+            print(f"""Link: {link}
+            Description: {info.get('description')} 
+            Keywords: {info.get('keywords')}
+                    """)
+
     def crawl(self, url):
         count = 0
         for link in self.get_links(url):
@@ -56,18 +58,13 @@ class PyCrawler(object):
                 continue
             self.visited.add(link)
             info = self.extract_info(link)
-
-            if(("wine" in info.get('description')) == True):
-                count += 1
-                print(f"""Link: {link}
-                Description: {info.get('description')} 
-                Keywords: {info.get('keywords')}
-                        """)
-                # self.crawl(link)
-            if (count == 10):
-                break
-
-
+            threads = []
+            for counter in range(10):
+                t = threading.Thread(target=self.print_link(info, link))
+                threads.append(t)
+                t.start()
+                t.join()
+            break
 
     def start(self):
         self.crawl(self.starting_url)
