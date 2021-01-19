@@ -3,6 +3,12 @@ import socket, threading  # Libraries import
 
 import aes
 
+#
+#This is server of chat
+#
+#@author: Filip Werra s19375
+#
+
 host = '127.0.0.1'  # LocalHost
 port = 7976  # Choosing unreserved port
 
