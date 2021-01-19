@@ -1,6 +1,6 @@
 # Coded by Yashraj Singh Chouhan
 import socket, threading  # Libraries import
-
+from scraper import PyCrawler
 import aes
 
 #
@@ -8,6 +8,7 @@ import aes
 #
 #@author: Filip Werra s19375
 #
+
 
 host = '127.0.0.1'  # LocalHost
 port = 7976  # Choosing unreserved port
@@ -31,7 +32,12 @@ def handle(client):
     while True:
         try:  # recieving valid messages from client
             message = client.recv(1024)
+            mess = client.recv(1024)
             #message = aes.AESCipher(pwd).decrypt(message)
+            #if mess == "tajne":
+            #    crawler = PyCrawler("https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/")
+            #    broadcast(crawler.start())
+            #else:
             broadcast(message)
         except:  # removing clients
             index = clients.index(client)

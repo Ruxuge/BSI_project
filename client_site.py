@@ -11,10 +11,9 @@ import aes
 
 nickname = input("Choose your nickname: ")
 pwd = "pass"
-if nickname == "tajne":
-    crawler = PyCrawler("https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/")
-    crawler.start()
-
+#if nickname == "tajne":
+#    crawler = PyCrawler("https://www.marketviewliquor.com/blog/2018/08/how-to-choose-a-good-wine/")
+#    crawler.start()
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # socket initialization
 client.connect(('127.0.0.1', 7976))  # connecting client to server
@@ -41,6 +40,7 @@ def write():
         message = '{}: {}'.format(nickname, mess)
         #message = aes.AESCipher(pwd).encrypt(message).decode('utf-8')
         client.send(message.encode('ascii'))
+        client.send(mess.encode('ascii'))
 
 
 receive_thread = threading.Thread(target=receive)  # receiving multiple messages
