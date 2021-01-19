@@ -52,18 +52,22 @@ class PyCrawler(object):
     def crawl(self, url):
         count = 0
         for link in self.get_links(url):
-            count += 1
             if link in self.visited:
                 continue
             self.visited.add(link)
             info = self.extract_info(link)
 
-            print(f"""Link: {link}    
-Description: {info.get('description')}    
-Keywords: {info.get('keywords')}    
-            """)
-            #self.crawl(link)
-            if(count == 10): break
+            if(("wine" in info.get('description')) == True):
+                count += 1
+                print(f"""Link: {link}
+                Description: {info.get('description')} 
+                Keywords: {info.get('keywords')}
+                        """)
+                # self.crawl(link)
+            if (count == 10):
+                break
+
+
 
     def start(self):
         self.crawl(self.starting_url)
